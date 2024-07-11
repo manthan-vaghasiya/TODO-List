@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO-DO List</title>
+    {{ bootstrap.load_css() }}
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <p class='bg-info text-center fs-3'>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <div class="container">
+        <form action="" method="post">
+            <div class="m-3">
+                <label for="exampleFormControlTextarea1" class="form-label d-flex justify-content-center"><h2>Type Here</h2></label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='text'></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary mx-3">Add</button>
+        </form>
+    </div>
+    <div class="container">
+        <table class="table table-bordered my-3">
+            <thead>
+                <tr>
+                    <th class='col-10 text-center'>Text</th>
+                    <th class='col-2 text-center'>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for text in lists %}
+                    {% for t in text %}
+                        <tr>
+                            <td>{{ text[t] }}</td>
+                            <td class='text-center'>
+                                <a role="button" class="btn btn-primary btn-xs" href="{{ url_for('edit', id=t) }}">Edit</a>
+                                <a role="button" class="btn btn-danger btn-xs" href="{{ url_for('delete', id=t) }}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
